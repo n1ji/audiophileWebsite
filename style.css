@@ -1,0 +1,47 @@
+body {
+    background: #303e44;
+    animation: colorchange 10s infinite;
+    /* Flexbox centering */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh;
+    margin: 0;
+    color:azure;
+    font-family: Impact, sans-serif;
+}
+
+h1 {
+    font-size: 48px;
+    margin: 0;
+    padding: 1%;
+}
+
+a {
+    color: #d7b8ff;
+    text-decoration: none;
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+/* Background Color Cycling */
+@keyframes colorchange {
+    0%   {background: #303e44;}
+    16.6%  {background: #2f3144;}
+    33.2%  {background: #392f44;}
+    49.8%  {background: #442f42;}
+    66.4%  {background: #2f443c;}
+    83%  {background: #293837;}
+    100% {background: #303e44;}
+}
+
+@-webkit-keyframes colorchange {
+    0%   {background: #303e44;}
+    16.6%  {background: #2f3144;}
+    33.2%  {background: #392f44;}
+    49.8%  {background: #442f42;}
+    66.4%  {background: #2f443c;}
+    83%  {background: #293837;}
+    100% {background: #303e44;}
+}

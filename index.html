@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="style.css" rel="stylesheet">
     <title>Myra's Classes</title>
 </head>
 <body>
@@ -15,15 +16,17 @@
         const linksDiv = document.getElementById('links');
         const submodules = [
             {name: 'IT116 Portal', url: 'portal/'},
-            {name: 'IT121 Story Game', url: 'it121-w25/it121-storyGame/'},
+            {name: "IT121 Story Game", url: "it121-w25/it121-storyGame/"},
             {name: 'IT121 Inventory Manager', url: 'it121-w25/it121-inventoryManager/'},
         ];
 
         submodules.forEach(submodule => {
             const link = document.createElement('a');
+            const addBreak = document.createElement('br');
             link.href = submodule.url;
             link.textContent = submodule.name;
             linksDiv.appendChild(link);
+            linksDiv.innerHTML += addBreak.outerHTML;
         });
     });
 </script>
