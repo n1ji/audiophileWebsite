@@ -18,17 +18,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Create package.json (if missing)
-        run: |
-          if [ ! -f package.json ]; then
-            echo '{"name": "audiophileWebsite", "version": "1.0.0", "scripts": {"build": "echo No build script"}}' > package.json
-          fi
-
       - name: Install dependencies
         run: npm install
 
       - name: Inject GitHub Token into config.js
-        run: echo "const token = '${GITHUB_TOKEN}';" > src/config.js
+        run: echo "const token = '${GITHUB_TOKEN}';" > config.js
 
       - name: Build project
         run: npm run build
