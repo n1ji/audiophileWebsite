@@ -15,7 +15,38 @@ body {
 h1 {
     font-size: 48px;
     margin: 0;
-    padding: 1%;
+    padding: 2%;
+    text-decoration: underline;
+}
+
+#submodule-list {
+    list-style-type: circle; /* Keep bullets for the top-level list */
+    padding-left: 20px; /* Add indentation for the top-level list */
+    margin: 0;
+    display: flex; /* Make the top-level <ul> flex container */
+    flex-direction: row; /* Display top-level <li> horizontally */
+    justify-content: center; /* Center the top-level <li> horizontally */
+    flex-wrap: wrap; /* Allow wrapping if there are many items */
+    gap: 20px; /* Add spacing between top-level <li> elements */
+}
+
+#submodule-list > li {
+    list-style-type: disc;
+    flex-direction: column; /* Stack nested content vertically */
+    align-items: flex-start; /* Align nested content to the left */
+    padding-right: 30px;
+}
+
+/* Style for nested <ul> (submodules) */
+#submodule-list ul {
+    list-style-type: circle; /* Keep bullets for nested lists */
+    padding-left: 40px; /* Add indentation for nested lists */
+    margin: 10px 0 0 0; /* Add spacing between top-level <li> and nested <ul> */
+}
+
+/* Style for nested <li> */
+#submodule-list ul li {
+    display: list-item; /* Ensure nested <li> elements are displayed as list items */
 }
 
 a {

@@ -1,2 +1,1 @@
-config.js
-.github/workflows/deploy.yml
+localConfig.js
