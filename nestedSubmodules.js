@@ -1,10 +1,13 @@
-// fetchSubmodules.js
+const loadingElement = document.getElementById('loading');
+const submoduleList = document.getElementById('submodule-list');
 
-// Replace with your GitHub username and repository name
+// Show the loading icon
+loadingElement.style.display = 'flex';
+submoduleList.style.display = 'none';
+
 const username = 'n1ji';
 const repo = 'audiophileWebsite';
 
-// Replace with your custom domain
 const customDomain = 'https://audiophile.website';
 
 // GitHub API URL to fetch the .gitmodules file
@@ -83,8 +86,14 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
 
             parentList.appendChild(listItem);
         }
+
+        // Hide the loading icon and show the submodule list
+        loadingElement.style.display = 'none';
+        submoduleList.style.display = 'block';
+
     } catch (error) {
         console.error('Error fetching submodules:', error);
+        loadingElement.textContent = 'Error fetching submodules.';
     }
 }
 
