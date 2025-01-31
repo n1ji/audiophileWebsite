@@ -24,45 +24,70 @@ async function hasIndexHtml(repoName) {
     }
 }
 
-// Function to fetch and parse the .gitmodules file
-async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
+// Function to fetch with a timeout
+async function fetchWithTimeout(resource, options = {}, timeout = 10000) { // 10 seconds timeout
+    
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    
     try {
-        const response = await fetch(parentRepoUrl);
+        const response = await fetch(resource, { ...options, signal: controller.signal });
+        return response;
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.error(`Request timed out: ${resource}`);
+            throw new Error('Request timed out');
+        } else {
+            throw error;
+        }
+    } finally {
+        clearTimeout(id);
+    }
+}
+
+async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
+    const minLoadingTime = 1900; // Ensure loading lasts at least 2 seconds
+    const startTime = Date.now();
+    try {
+        const response = await fetchWithTimeout(parentRepoUrl);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
 
-        // Check if the .gitmodules file exists
         if (!data.content) {
             console.error('No .gitmodules file found in the repository.');
-            return;
+            throw new Error('No .gitmodules file found.');
         }
 
-        // Decode the .gitmodules file content (base64 encoded)
         let gitmodulesContent;
         try {
-            gitmodulesContent = atob(data.content.replace(/\s/g, '')); // Remove whitespace and decode
+            gitmodulesContent = atob(data.content.replace(/\s/g, ''));
         } catch (error) {
             console.error('Error decoding .gitmodules file:', error);
-            return;
+            throw new Error('Error decoding .gitmodules file');
         }
 
-        // Parse the .gitmodules file to extract submodule information
         const submodules = parseGitmodules(gitmodulesContent);
 
         for (const submodule of submodules) {
-            // Extract the repository name from the submodule URL
             const repoName = extractRepoName(submodule.url);
 
-            // Check if the repository has an index.html file
-            const hasIndex = await hasIndexHtml(repoName);
-            if (!hasIndex) {
-                console.log(`Skipping ${repoName} (no index.html)`);
-                continue; // Skip this submodule
+            try {
+                const hasIndex = await hasIndexHtml(repoName);
+                if (!hasIndex) {
+                    console.log(`Skipping ${repoName} (no index.html)`);
+                    continue;
+                }
+            } catch (error) {
+                console.error(`Error checking index.html for ${repoName}:`, error);
+                continue;
             }
 
-            // Construct the GitHub Pages URL using the custom domain
             const submoduleUrl = `${customDomain}/${parentPath}${repoName}/`;
 
-            // Create a list item for the submodule
             const listItem = document.createElement('li');
             const link = document.createElement('a');
             link.href = submoduleUrl;
@@ -71,12 +96,11 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
 
             listItem.appendChild(link);
 
-            // Check if this submodule has its own .gitmodules file
             const submoduleApiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/.gitmodules`;
+
             try {
-                const submoduleResponse = await fetch(submoduleApiUrl);
+                const submoduleResponse = await fetchWithTimeout(submoduleApiUrl);
                 if (submoduleResponse.ok) {
-                    // If the submodule has a .gitmodules file, recursively fetch its submodules
                     const nestedList = document.createElement('ul');
                     listItem.appendChild(nestedList);
                     await fetchSubmodules(submoduleApiUrl, `${parentPath}${repoName}/`, nestedList);
@@ -88,16 +112,18 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
             parentList.appendChild(listItem);
         }
 
-        // Hide the loading icon and show the submodule list
-        loadingElement.style.display = 'none';
-        submoduleList.style.display = 'flex';
-
     } catch (error) {
         console.error('Error fetching submodules:', error);
-        // Hide the loading icon in case of error
-        loadingElement.style.display = 'none';
-        submoduleList.style.display = 'flex';
-        submoduleList.textContent = 'Error fetching submodules.';
+        submoduleList.textContent = 'Error loading submodules. Please try again later or from another IP address.';
+    } finally {
+        // Ensure loading element stays visible for at least minLoadingTime
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = minLoadingTime - elapsedTime;
+
+        setTimeout(() => {
+            loadingElement.style.display = 'none';
+            submoduleList.style.display = 'flex';
+        }, Math.max(remainingTime, 0)); // Prevents negative values
     }
 }
 
