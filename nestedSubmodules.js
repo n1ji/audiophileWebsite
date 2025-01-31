@@ -67,6 +67,7 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
             const link = document.createElement('a');
             link.href = submoduleUrl;
             link.textContent = submodule.path;
+            link.target = '_blank';
 
             listItem.appendChild(link);
 
@@ -96,7 +97,7 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
         // Hide the loading icon in case of error
         loadingElement.style.display = 'none';
         submoduleList.style.display = 'flex';
-        loadingElement.textContent = 'Error fetching submodules.';
+        submoduleList.textContent = 'Error fetching submodules.';
     }
 }
 

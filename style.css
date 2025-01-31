@@ -21,7 +21,7 @@ h1 {
 
 /* Ensure the top-level list displays its children horizontally */
 #submodule-list {
-    list-style-type: disc; /* Remove default bullets */
+    list-style-type: circle; /* Remove default bullets */
     padding-left: 0; /* Remove default padding */
     margin: 0;
     display: flex; /* Make the top-level <ul> a flex container */
@@ -33,13 +33,13 @@ h1 {
 
 /* Style for top-level list items */
 #submodule-list > li {
-    display: block; /* Ensure <li> behaves as a block element */
     padding-right: 30px; /* Add spacing between top-level <li> elements */
+    list-style-type: disc;
 }
 
 /* Style for nested <ul> (submodules) */
 #submodule-list ul {
-    list-style-type: disc; /* Add bullets for nested lists */
+    list-style-type: circle; /* Add bullets for nested lists */
     padding-left: 20px; /* Add indentation for nested lists */
     margin: 10px 0 0 0; /* Add spacing between top-level <li> and nested <ul> */
 }
@@ -47,6 +47,7 @@ h1 {
 /* Style for nested <li> */
 #submodule-list ul li {
     display: list-item; /* Ensure nested <li> elements are displayed as list items */
+    list-style-type: circle; /* Add bullets for nested lists */
 }
 
 #loading {
