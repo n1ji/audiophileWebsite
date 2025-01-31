@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass the token as an environment variable
+      GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}  # Pass the token as an environment variable
 
     steps:
       - name: Checkout repository
@@ -26,5 +26,5 @@ jobs:
 
       - name: Build project
         run: |
-          echo "const token = '${GITHUB_TOKEN}';" > src/config.js  # Inject the token into a config file
+          echo "const token = '${GITHUB_TOKEN}';" > config.js  # Inject the token into a config file
           npm run build
