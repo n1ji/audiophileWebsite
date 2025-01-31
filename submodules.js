@@ -3,11 +3,7 @@ import token from './config.js';
 const username = 'n1ji';
 const repo = 'audiophileWebsite';
 
-// Replace with your custom domain
 const customDomain = 'https://audiophile.website';
-
-// Replace with your GitHub personal access token
-const token = token; // Generate a token with 'repo' scope from GitHub
 
 // GitHub API URL to fetch the .gitmodules file
 const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/.gitmodules`;
@@ -139,7 +135,6 @@ function parseGitmodules(content) {
 
 // Function to extract the repository name from the Git URL
 function extractRepoName(gitUrl) {
-    // Example Git URL: https://github.com/username/repo.git
     // Extract the part after the last '/' and remove '.git'
     const repoName = gitUrl.split('/').pop().replace('.git', '');
     return repoName;
