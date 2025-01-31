@@ -93,6 +93,9 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
 
     } catch (error) {
         console.error('Error fetching submodules:', error);
+        // Hide the loading icon in case of error
+        loadingElement.style.display = 'none';
+        submoduleList.style.display = 'block';
         loadingElement.textContent = 'Error fetching submodules.';
     }
 }
@@ -135,5 +138,4 @@ function extractRepoName(gitUrl) {
 }
 
 // Call the function to fetch and display submodules
-const submoduleList = document.getElementById('submodule-list');
 fetchSubmodules(apiUrl, '', submoduleList);
