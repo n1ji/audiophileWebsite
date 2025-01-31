@@ -3,20 +3,38 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      GITHUB_TOKEN: ${{ secrets.MODULE_TOKEN }}  # Pass the token as an environment variable
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Create package.json (if missing)
+        run: |
+          if [ ! -f package.json ]; then
+            echo '{"name": "audiophileWebsite", "version": "1.0.0", "scripts": {"build": "echo No build script"}}' > package.json
+          fi
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Inject GitHub Token into config.js
+        run: echo "const token = '${GITHUB_TOKEN}';" > src/config.js
 
       - name: Build project
-        run: |
-          echo "const token = '${GITHUB_TOKEN}';" > config.js  # Inject the token into a config file
-          npm run build
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.MODULE_TOKEN }}
+          publish_dir: ./dist
