@@ -89,13 +89,13 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
 
         // Hide the loading icon and show the submodule list
         loadingElement.style.display = 'none';
-        submoduleList.style.display = 'block';
+        submoduleList.style.display = 'flex';
 
     } catch (error) {
         console.error('Error fetching submodules:', error);
         // Hide the loading icon in case of error
         loadingElement.style.display = 'none';
-        submoduleList.style.display = 'block';
+        submoduleList.style.display = 'flex';
         loadingElement.textContent = 'Error fetching submodules.';
     }
 }
