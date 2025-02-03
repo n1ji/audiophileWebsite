@@ -4,3 +4,6 @@
 [submodule "it121-w25"]
 	path = it121-w25
 	url = https://github.com/n1ji/it121-w25.git
+[submodule "it211-staging-area"]
+	path = it211-staging-area
+	url = https://github.com/n1ji/it211-staging-area.git
