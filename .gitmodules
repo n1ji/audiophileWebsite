@@ -7,3 +7,9 @@
 [submodule "it211-staging-area"]
 	path = it211-staging-area
 	url = https://github.com/n1ji/it211-staging-area.git
+[submodule "dealersPact"]
+	path = dealersPact
+	url = https://github.com/n1ji/dealersPact
+[submodule "it211-s25"]
+	path = it211-s25
+	url = https://github.com/n1ji/it211-s25.git
