@@ -14,13 +14,13 @@ const customDomain = 'https://audiophile.website';
 const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/.gitmodules`;
 
 // Function to check if a repository has an index.html file
-async function hasIndexHtml(repoName) {
-    const indexHtmlUrl = `https://api.github.com/repos/${username}/${repoName}/contents/index.html`;
+async function hasIndexHtml(repoName, branch = 'main') {
+    const indexHtmlUrl = `https://api.github.com/repos/${username}/${repoName}/contents/index.html?ref=${branch}`;
     try {
-        const response = await fetch(indexHtmlUrl);
-        return response.ok; // Returns true if index.html exists
+        const response = await fetchWithTimeout(indexHtmlUrl);
+        return response.ok;
     } catch (error) {
-        return false; // Returns false if index.html does not exist or there's an error
+        return false;
     }
 }
 
@@ -45,9 +45,25 @@ async function fetchWithTimeout(resource, options = {}, timeout = 10000) { // 10
     }
 }
 
-async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
-    const minLoadingTime = 1900; // Ensure loading lasts at least 2 seconds
+async function getBranches(repoName) {
+    const branchesUrl = `https://api.github.com/repos/${username}/${repoName}/branches`;
+    try {
+        const response = await fetchWithTimeout(branchesUrl);
+        if (response.ok) {
+            const branches = await response.json();
+            return branches.map(b => b.name); // Return array of branch names
+        }
+        return ['main']; // Default fallback
+    } catch (error) {
+        console.error(`Error fetching branches for ${repoName}:`, error);
+        return ['main']; // Default fallback
+    }
+}
+
+async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList, branch = 'main') {
+    const minLoadingTime = 1000;
     const startTime = Date.now();
+    const response = await fetchWithTimeout(`${parentRepoUrl}?ref=${branch}`);
     try {
         const response = await fetchWithTimeout(parentRepoUrl);
         
@@ -74,11 +90,13 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
 
         for (const submodule of submodules) {
             const repoName = extractRepoName(submodule.url);
-
+            const availableBranches = await getBranches(repoName);
+            const targetBranch = availableBranches.includes('site') ? 'site' : availableBranches.includes('main') ? 'main' : availableBranches.includes('main') ? 'main' : availableBranches[0] || 'main';
+            
             try {
-                const hasIndex = await hasIndexHtml(repoName);
+                const hasIndex = await hasIndexHtml(repoName, targetBranch);
                 if (!hasIndex) {
-                    console.log(`Skipping ${repoName} (no index.html)`);
+                    console.log(`Skipping ${repoName} (no index.html in ${targetBranch})`);
                     continue;
                 }
             } catch (error) {
@@ -96,14 +114,14 @@ async function fetchSubmodules(parentRepoUrl, parentPath = '', parentList) {
 
             listItem.appendChild(link);
 
-            const submoduleApiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/.gitmodules`;
-
+            const submoduleApiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/.gitmodules?ref=${targetBranch}`;
+            
             try {
                 const submoduleResponse = await fetchWithTimeout(submoduleApiUrl);
                 if (submoduleResponse.ok) {
                     const nestedList = document.createElement('ul');
                     listItem.appendChild(nestedList);
-                    await fetchSubmodules(submoduleApiUrl, `${parentPath}${repoName}/`, nestedList);
+                    await fetchSubmodules(submoduleApiUrl, `${parentPath}${repoName}/`, nestedList, targetBranch);
                 }
             } catch (error) {
                 console.error(`Error fetching submodules for ${repoName}:`, error);
