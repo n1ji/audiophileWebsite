@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             path: "it115",
             url: "#",
             submodules: [
-                { name: "Discord Bot", path: "discord-bot", url: "https://github.com/n1ji/discord-bot" }
+                { name: "Discord Bot", path: "discord-bot", url: "https://audiophile.website/portal/discord-bot" }
             ]
         },
         {
@@ -15,15 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
             path: "portal",
             url: "https://audiophile.website/portal",
             submodules: [
-                { name: "Creatures", path: "creatures", url: "https://github.com/n1ji/creatures" },
-                { name: "HTML Elements", path: "html-elements", url: "https://github.com/n1ji/html-elements" },
-                { name: "Stylin with CSS", path: "stylin-with-css", url: "https://github.com/n1ji/stylin-with-css" },
-                { name: "Selectors", path: "selectors", url: "https://github.com/n1ji/selectors" },
-                { name: "CSS Positioning", path: "positioning", url: "https://github.com/n1ji/css-positioning" },
-                { name: "Time of Day", path: "time-of-day", url: "https://github.com/n1ji/time-of-day" },
-                { name: "Daily Grind", path: "daily-grind", url: "https://github.com/n1ji/daily-grind" },
-                { name: "Form Processing", path: "form-processing", url: "https://github.com/n1ji/form-processing" },
-                { name: "GitHub Page", path: "github-page", url: "https://github.com/n1ji/github-page" }
+                { name: "Creatures", path: "creatures", url: "https://audiophile.website/portal/creatures" },
+                { name: "HTML Elements", path: "html-elements", url: "https://audiophile.website/portal/html-elements" },
+                { name: "Stylin with CSS", path: "stylin-with-css", url: "https://audiophile.website/portal/stylin-with-css" },
+                { name: "Selectors", path: "selectors", url: "https://audiophile.website/portal/selectors" },
+                { name: "CSS Positioning", path: "positioning", url: "https://audiophile.website/portal/css-positioning" },
+                { name: "Time of Day", path: "time-of-day", url: "https://audiophile.website/portal/time-of-day" },
+                { name: "Daily Grind", path: "daily-grind", url: "https://audiophile.website/portal/daily-grind" },
+                { name: "Form Processing", path: "form-processing", url: "https://audiophile.website/portal/form-processing" },
+                { name: "GitHub Page", path: "github-page", url: "https://audiophile.website/portal/github-page" }
             ]
         },
         {
@@ -31,29 +31,35 @@ document.addEventListener('DOMContentLoaded', function() {
             path: "it121",
             url: "https://audiophile.website/it121-w25",
             submodules: [
-                { name: "Story Game", path: "it121-storyGame", url: "https://github.com/n1ji/it121-storyGame" },
-                { name: "Inventory Manager", path: "it121-inventoryManager", url: "https://github.com/n1ji/it121-inventoryManager" },
-                { name: "Weather App", path: "it121-weatherApp", url: "https://github.com/n1ji/it121-weatherApp" },
-                { name: "Fetch Display", path: "it121-fetchDisplay", url: "https://github.com/n1ji/it121-fetchDisplay" }
+                { name: "Story Game", path: "it121-storyGame", url: "https://audiophile.website/it121-w25/it121-storyGame" },
+                { name: "Inventory Manager", path: "it121-inventoryManager", url: "https://audiophile.website/it121-w25/it121-inventoryManager" },
+                { name: "Weather App", path: "it121-weatherApp", url: "https://audiophile.website/it121-w25/it121-weatherApp" },
+                { name: "Fetch Display", path: "it121-fetchDisplay", url: "https://audiophile.website/it121-w25/it121-fetchDisplay" }
             ]
         },
         {
             name: "IT122 Projects",
             path: "it122-s25",
-            url: "https://github.com/n1ji/it122-s25",
-            submodules: []
+            url: "https://audiophile.website/it122-s25",
+            submodules: [
+                { name: "DOM Play", path: "dom-play", url: "https://audiophile.website/it122-s25/dom-play" }
+            ]
         },
         {
-            name: "IT211 Staging Area",
-            path: "it211-staging-area",
-            url: "https://github.com/n1ji/it211-staging-area",
-            submodules: []
+            name: "IT211 Projects",
+            path: "it211",
+            url: "#",
+            submodules: [
+                { name: "IT211 Staging Area", path: "it211-staging-area", url: "https://audiophile.website/it211-staging-area" },
+            ]
         },
         {
-            name: "Dealers Pact",
-            path: "dealersPact",
-            url: "https://github.com/n1ji/dealersPact",
-            submodules: []
+            name: "BTM260 Projects",
+            path: "btm260",
+            url: "#",
+            submodules: [
+                { name: "Dealers Pact", path: "dealersPact", url: "https://audiophile.website/dealersPact" },
+            ]
         },
         
         
