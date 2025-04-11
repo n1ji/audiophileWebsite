@@ -1,76 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Whisper&display=swap');
+
 body {
     background: #303e44;
     animation: colorchange 10s infinite;
-    /* Flexbox centering */
     display: flex;
-    flex-direction: column; /* Stack content vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     min-height: 100vh;
     margin: 0;
-    color:azure;
-    font-family: Impact, sans-serif;
+    color: azure;
+    font-family: "Quicksand", sans-serif;
+    font-size: 24px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Custom scrollbar for all elements */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff0d;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d7b8ff;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c5a0e6;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    grid-auto-rows: minmax(300px, 1fr);
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: #ffffff1a;
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.project-toggle {
+    color: #d7b8ff;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+    transform: rotate(0deg); /* Start pointing right */
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.project-toggle.collapsed {
+    transform: rotate(90deg); /* Rotate down when expanded */
+}
+
+.subprojects {
+    padding-left: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    flex-grow: 1;
+    overflow-y: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #d7b8ff #ffffff0d; /* For Firefox */
 }
 
 h1 {
-    font-size: 48px;
-    margin: 0;
-    padding: 3%;
-    text-decoration: underline;
-}
-
-/* Ensure the top-level list displays its children horizontally */
-#submodule-list {
-    list-style-type: circle; /* Remove default bullets */
-    padding-left: 0; /* Remove default padding */
-    margin: 0;
-    display: flex; /* Make the top-level <ul> a flex container */
-    flex-direction: row; /* Display top-level <li> horizontally */
-    justify-content: center; /* Center the top-level <li> horizontally */
-    flex-wrap: wrap; /* Allow wrapping if there are many items */
-    gap: 20px; /* Add spacing between top-level <li> elements */
-}
-
-/* Style for top-level list items */
-#submodule-list > li {
-    padding-right: 30px; /* Add spacing between top-level <li> elements */
-    list-style-type: disc;
-}
-
-/* Style for nested <ul> (submodules) */
-#submodule-list ul {
-    list-style-type: circle; /* Add bullets for nested lists */
-    padding-left: 20px; /* Add indentation for nested lists */
-    margin: 10px 0 0 0; /* Add spacing between top-level <li> and nested <ul> */
-}
-
-/* Style for nested <li> */
-#submodule-list ul li {
-    display: list-item; /* Ensure nested <li> elements are displayed as list items */
-    list-style-type: circle; /* Add bullets for nested lists */
-}
-
-#loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-}
-
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #d7b8ff;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    animation: spin 1s cubic-bezier(0.6, -0.2, 0.6, -0.8) infinite;
+    font-size: 4em;
+    margin: 0 0 40px 0;
+    font-family: "Whisper", cursive;
 }
 
 a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.project-title {
+    color: #d7b8ff;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.project-toggle {
+    color: #d7b8ff;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.project-toggle.collapsed {
+    transform: rotate(0deg);
+}
+
+.project-link {
+    display: block;
     color: #d7b8ff;
     text-decoration: none;
-    font-size: 24px;
-    line-height: 1.5;
+    padding: 8px;
+    margin: 4px 0;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    font-size: 16px;
+}
+
+.project-link:hover {
+    background: #d7b8ff1a;
+}
+
+.subprojects {
+    padding-left: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.subprojects.show {
+    max-height: 200px;
 }
 
 /* Background Color Cycling */
@@ -84,18 +165,30 @@ a {
     100% {background: #303e44;}
 }
 
-@-webkit-keyframes colorchange {
-    0%   {background: #303e44;}
-    16.6%  {background: #2f3144;}
-    33.2%  {background: #392f44;}
-    49.8%  {background: #442f42;}
-    66.4%  {background: #2f443c;}
-    83%  {background: #293837;}
-    100% {background: #303e44;}
+
+@media (max-width: 700px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .project-card {
+        min-height: 180px;
+    }
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+@media (max-width: 600px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+    }
+    
+    h1 {
+        font-size: 36px;
+    }
+    
+    .project-title {
+        font-size: 18px;
     }
 }
