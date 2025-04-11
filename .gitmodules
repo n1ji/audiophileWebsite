@@ -13,3 +13,6 @@
 [submodule "it211-s25"]
 	path = it211-s25
 	url = https://github.com/n1ji/it211-s25.git
+[submodule "it122-s25"]
+	path = it122-s25
+	url = https://github.com/n1ji/it122-s25.git
