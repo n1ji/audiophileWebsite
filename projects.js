@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             path: "it122-s25",
             url: "https://audiophile.website/it122-s25",
             submodules: [
-                { name: "DOM Play", path: "dom-play", url: "https://audiophile.website/it122-s25/dom-play" }
+                { name: "DOM Play", path: "dom-play", url: "https://audiophile.website/it122-s25/it122-domPlay" }
             ]
         },
         {
