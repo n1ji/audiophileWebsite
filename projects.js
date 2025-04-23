@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const projectsData = [
         {
-            name: "IT115 Projects",
+            name: "IT115 Software Dev Tools",
             path: "it115",
             url: "#",
             submodules: [
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         {
-            name: "IT116 Portal",
+            name: "IT116 Programming & Web",
             path: "portal",
             url: "https://audiophile.website/portal",
             submodules: [
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         {
-            name: "IT121 Projects",
+            name: "IT121 Javascript 1",
             path: "it121",
             url: "https://audiophile.website/it121-w25",
             submodules: [
@@ -38,24 +38,28 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         {
-            name: "IT122 Projects",
+            name: "IT122 JavaScript 2",
             path: "it122-s25",
             url: "https://audiophile.website/it122-s25",
             submodules: [
+                { name: "Staging Area", path: "staging-area", url: "https://audiophile.website/it122-s25/staging-area.html" },
                 { name: "DOM Play", path: "dom-play", url: "https://audiophile.website/it122-s25/it122-domPlay" },
                 { name: "Seasonal Styles", path: "it122-seasonal-styles", url: "https://audiophile.website/it122-s25/it122-seasonal-styles" }
             ]
         },
         {
-            name: "IT211 Projects",
+            name: "IT211 OOP Java",
             path: "it211",
             url: "#",
             submodules: [
                 { name: "IT211 Staging Area", path: "it211-staging-area", url: "https://audiophile.website/it211-staging-area" },
+                { name: "Number Guess", path: "numguess", url: "https://github.com/n1ji/it211-numguess" },
+                { name: "Creature Feature", path: "creatureFeature", url: "https://github.com/n1ji/it211-creatureFeature" },
+                { name: "Calculator", path: "calc_ulator", url: "https://github.com/n1ji/calc_ulator" },
             ]
         },
         {
-            name: "BTM260 Projects",
+            name: "BTM260 Project Management",
             path: "btm260",
             url: "#",
             submodules: [
