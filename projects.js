@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (project.submodules.length > 0) {
         const toggle = document.createElement("span");
         toggle.className = "project-toggle collapsed"; // Start collapsed (pointing right)
-        toggle.textContent = "🞂"; // Right arrow character
+        toggle.textContent = ">"; // Right arrow character
         projectHeader.appendChild(toggle);
 
         projectHeader.addEventListener("click", function (e) {
@@ -201,8 +201,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // Update arrow character
           toggle.textContent = toggle.classList.contains("collapsed")
-            ? "🞂"
-            : "🞃";
+            ? ">"
+            : "v";
         });
       }
 
